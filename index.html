@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="icon" href="./img/icon.png">
+    <script src="./js/jquery-3.6.1.js"></script>
+    <script src="./js/jquery.tmpl.js"></script>
+    
+    <title>PurPur天气</title>
+</head>
+<body>
+    <div class="banner">
+        <input type="button" value="搜索" id="chaxun" class="chaxun">
+        <input type="search" placeholder="请输入城市" id="shuru" class="shuru">
+        
+    </div>
+    <div class="All">
+        <div id="Tubiao" class="Tubiao"></div>
+        <div id="Tishi" class="Tishi"></div>
+        <div id="Qiwen" class="Qiwen"></div>
+        <div class="t1" id="t1"></div>
+        <div class="t2" id="t2"></div>
+        <div class="t3"></div>
+    </div>
+    <!-- 备案信息 -->
+    <div class="beian"><p class="fot">版权所属makerhan.com&nbsp;&nbsp;&nbsp;&nbsp;蜀ICP备2023005484号&nbsp;&nbsp;&nbsp;&nbsp; <img src="img/beian.png" alt="" class="">川公网安备 51011502000603号</p></div>
+</body>
+
+<!-- echars图表 -->
+
+<script src="./js/echarts.min.js"></script>
+<script>
+    
+    
+</script>
+<script>
+
+$(function(){
+    var e_width = document.getElementById("t2").offsetWidth ;//宽度
+    var e_height = document.getElementById("t2").offsetHeight * 1.1;//
+        
+        myCharts.resize({
+            width: e_width,
+            height: e_height
+        });
+    })
+
+
+    var myCharts = echarts.init(document.getElementById('t2'));
+    
+    option = {
+  title: {
+    text: '未来一周天气',
+    left: "left",
+    top: 5,
+    textStyle: {
+    color: "blue",
+    fontSize:16,
+    },
+  },
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {},
+  toolbox: {
+    show: false,
+    feature: {
+      dataZoom: {
+        yAxisIndex: 'none'
+      },
+      dataView: { readOnly: false },
+      magicType: { type: ['line', 'bar'] },
+      restore: {},
+      saveAsImage: {}
+    }
+  },
+  xAxis: {
+    fontSize:'8',
+    type: 'category',
+    boundaryGap: false,
+    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+  },
+  yAxis: {
+    type: 'value',
+    axisLabel: {
+      formatter: '{value} °C'
+    }
+  },
+  series: [
+    {
+      name: '最高温',
+      type: 'line',
+      data: [10, 11, 13, 11, 12, 12, 9],
+      markPoint: {
+        data: [
+          { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: 'Avg' }]
+      }
+    },
+    {
+      name: '最低温',
+      type: 'line',
+      data: [1, -2, 2, 5, 3, 2, 0],
+      markPoint: {
+        data: [{ name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }]
+      },
+      markLine: {
+        data: [
+          { type: 'average', name: 'Avg' },
+          [
+            {
+              symbol: 'none',
+              x: '90%',
+              yAxis: 'max'
+            },
+            {
+              symbol: 'circle',
+              label: {
+                position: 'start',
+                formatter: 'Max'
+              },
+              type: 'max',
+              name: '最高点'
+            }
+          ]
+        ]
+      }
+    }
+  ]
+};
+    
+    myCharts.setOption(option)
+    
+    </script>
+</html>
